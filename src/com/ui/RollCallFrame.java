@@ -242,7 +242,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createAutoStopTask()
 	{
-		// 定时3秒自动停止
+		// 3秒后自动停止
 		autoTimer = new javax.swing.Timer(3000, new ActionListener()
 		{
 			@Override
