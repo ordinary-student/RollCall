@@ -1,8 +1,11 @@
 package com.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,11 +23,13 @@ import com.utils.WindowUtil;
 public class RollCallFrame extends KFrame
 {
 	private static final long serialVersionUID = 2632712392130634764L;
-	private JLabel label;
-	private JMenuItem editItem;
 	private JMenuItem startItem;
 	private JMenuItem exitItem;
+	private JMenuItem editItem;
+	private JCheckBoxMenuItem soundItem;
 	private JMenuItem settingItem;
+	private JLabel label;
+	private JButton startButton;
 
 	/*
 	 * 构造方法
@@ -61,7 +66,7 @@ public class RollCallFrame extends KFrame
 		startItem = new JMenuItem("开始点名");
 		startItem.addActionListener(this);
 		startMenu.add(startItem);
-
+		startMenu.addSeparator();
 		exitItem = new JMenuItem("退出");
 		exitItem.addActionListener(this);
 		startMenu.add(exitItem);
@@ -74,7 +79,11 @@ public class RollCallFrame extends KFrame
 		menuBar.add(editMenu);
 
 		// 设置
-		settingItem = new JMenuItem("编辑名单");
+		soundItem = new JCheckBoxMenuItem("静音");
+		soundItem.addActionListener(this);
+		settingMenu.add(soundItem);
+		settingMenu.addSeparator();
+		settingItem = new JMenuItem("设置...");
 		settingItem.addActionListener(this);
 		settingMenu.add(settingItem);
 
@@ -85,10 +94,16 @@ public class RollCallFrame extends KFrame
 
 		// 标签
 		label = new JLabel("准备点名", SwingConstants.CENTER);
-		label.setFont(new Font("宋体", Font.PLAIN, 40));
+		label.setFont(new Font("宋体", Font.PLAIN, 50));
 		getContentPane().add(label, BorderLayout.CENTER);
 
 		// 按钮
+		startButton = new JButton("开始");
+		startButton.setPreferredSize(new Dimension(400, 50));
+		startButton.setFont(new Font("宋体", Font.PLAIN, 20));
+		startButton.setFocusPainted(false);
+		startButton.addActionListener(this);
+		getContentPane().add(startButton, BorderLayout.SOUTH);
 
 		validate();
 		// 显示界面
