@@ -3,6 +3,7 @@ package com.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -30,6 +31,7 @@ public class RollCallFrame extends KFrame
 	private JMenuItem settingItem;
 	private JLabel label;
 	private JButton startButton;
+	private boolean soundFlag = true;
 
 	/*
 	 * 构造方法
@@ -63,26 +65,33 @@ public class RollCallFrame extends KFrame
 		JMenu settingMenu = new JMenu("设置");
 
 		// 创建菜单项
+		// 开始点名
 		startItem = new JMenuItem("开始点名");
 		startItem.addActionListener(this);
 		startMenu.add(startItem);
+
 		startMenu.addSeparator();
+
+		// 退出
 		exitItem = new JMenuItem("退出");
 		exitItem.addActionListener(this);
 		startMenu.add(exitItem);
 		menuBar.add(startMenu);
 
-		// 编辑
+		// 编辑名单
 		editItem = new JMenuItem("编辑名单");
 		editItem.addActionListener(this);
 		editMenu.add(editItem);
 		menuBar.add(editMenu);
 
-		// 设置
+		// 静音
 		soundItem = new JCheckBoxMenuItem("静音");
 		soundItem.addActionListener(this);
 		settingMenu.add(soundItem);
+
 		settingMenu.addSeparator();
+
+		// 设置
 		settingItem = new JMenuItem("设置...");
 		settingItem.addActionListener(this);
 		settingMenu.add(settingItem);
@@ -108,5 +117,10 @@ public class RollCallFrame extends KFrame
 		validate();
 		// 显示界面
 		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
 	}
 }
