@@ -3,7 +3,7 @@ package com.entity;
 /**
  * Person类
  * 
- * @author Administrator
+ * @author ordinary-student
  *
  */
 public class Person
