@@ -187,8 +187,8 @@ public class RollCallFrame extends KFrame
 			runFlag = true;
 			startButton.setText("停止");
 			startItem.setText("停止点名");
-			// 循环显示
-			showNames();
+			// 创建循环显示名字的任务
+			createShowNamesTask();
 
 		} else
 		{
@@ -209,9 +209,9 @@ public class RollCallFrame extends KFrame
 	}
 
 	/**
-	 * 循环显示名字
+	 * 创建循环显示名字的任务
 	 */
-	private void showNames()
+	private void createShowNamesTask()
 	{
 		// 创建定时器
 		Timer timer = new Timer();
