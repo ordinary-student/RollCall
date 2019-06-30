@@ -46,6 +46,12 @@ public class ShowNamesTask extends TimerTask
 			// 显示名字
 			label.setText(name);
 
+			// 播放显示音效
+			if (RollCallFrame.soundFlag)
+			{
+				// TODO...
+			}
+
 			try
 			{
 				Thread.sleep(60);
@@ -58,6 +64,11 @@ public class ShowNamesTask extends TimerTask
 		{
 			// 取消任务
 			cancel();
+			// 播放停止音效
+			if (RollCallFrame.soundFlag)
+			{
+				// TODO...
+			}
 		}
 	}
 

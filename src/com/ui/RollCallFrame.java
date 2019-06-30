@@ -47,7 +47,7 @@ public class RollCallFrame extends KFrame
 	// 自动停止标志
 	private boolean autoStopFlag = true;
 	// 声音标志
-	private boolean soundFlag = true;
+	public static boolean soundFlag = true;
 
 	/*
 	 * 构造方法
