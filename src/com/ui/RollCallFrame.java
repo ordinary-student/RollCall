@@ -1,5 +1,7 @@
 package com.ui;
 
+import com.utils.WindowUtil;
+
 /**
  * 点名小程序主窗口类
  * 
@@ -27,8 +29,10 @@ public class RollCallFrame extends KFrame
 		// 设置标题
 		setTitle("随机点名器");
 		// 设置大小
-		setBounds(200, 200, 400, 300);
-		setLayout(null);
+		setSize(400, 300);
+		// 设置居中
+		WindowUtil.center(this);
+		// 设置关闭方式
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 }
