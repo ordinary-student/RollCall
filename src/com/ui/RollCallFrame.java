@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -31,6 +32,9 @@ public class RollCallFrame extends KFrame
 	private JMenuItem settingItem;
 	private JLabel label;
 	private JButton startButton;
+	// 名单集合
+	private ArrayList<String> list;
+	// 声音标志
 	private boolean soundFlag = true;
 
 	/*
@@ -38,6 +42,8 @@ public class RollCallFrame extends KFrame
 	 */
 	public RollCallFrame()
 	{
+		// 初始化名单集合
+		list = new ArrayList<String>();
 		// 初始化界面
 		initUI();
 	}
@@ -126,7 +132,7 @@ public class RollCallFrame extends KFrame
 		if (e.getSource() == startItem)
 		{
 			// 开始点名
-			startRollcall();
+			startRollCall();
 
 		} else if (e.getSource() == exitItem)
 		{
@@ -152,7 +158,7 @@ public class RollCallFrame extends KFrame
 	/**
 	 * 开始点名
 	 */
-	private void startRollcall()
+	private void startRollCall()
 	{
 
 	}
