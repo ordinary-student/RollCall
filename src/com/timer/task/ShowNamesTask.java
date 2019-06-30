@@ -50,7 +50,7 @@ public class ShowNamesTask extends TimerTask
 			// 播放显示音效
 			if (RollCallFrame.soundFlag)
 			{
-				new PlaySoundThread("show.wav");
+				new PlaySoundThread("show.wav").start();
 			}
 
 			try
@@ -68,7 +68,7 @@ public class ShowNamesTask extends TimerTask
 			// 播放停止音效
 			if (RollCallFrame.soundFlag)
 			{
-				new PlaySoundThread("stop.wav");
+				new PlaySoundThread("stop.wav").start();
 			}
 		}
 	}
