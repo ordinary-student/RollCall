@@ -1,5 +1,7 @@
 package com.ui;
 
+import javax.swing.JFrame;
+
 /**
  * 设置窗口类
  * 
@@ -13,12 +15,14 @@ public class SettingDialog extends KDialog
 	/*
 	 * 构造方法
 	 */
-	public SettingDialog()
+	public SettingDialog(JFrame owner)
 	{
 		// 设置标题
 		setTitle("编辑名单");
 		// 设置大小
 		setSize(400, 300);
+		// 设置位置
+		setLocationRelativeTo(owner);
 		// 设置阻塞
 		setModal(true);
 		// 设置关闭方式

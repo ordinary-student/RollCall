@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -16,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
+import com.timer.task.ShowNamesTask;
 import com.utils.WindowUtil;
 
 /**
@@ -36,6 +39,8 @@ public class RollCallFrame extends KFrame
 	private JButton startButton;
 	// 名单集合
 	public static List<String> list = new ArrayList<String>();
+	// 运行标志
+	public static boolean runFlag = false;
 	// 声音标志
 	private boolean soundFlag = true;
 
@@ -161,17 +166,32 @@ public class RollCallFrame extends KFrame
 	 */
 	private void startRollCall()
 	{
-		if (list.size() > 0)
+		// 如果已运行则停止
+		if (runFlag)
 		{
-			// 循环显示
-			showNames();
+			runFlag = false;
+			startButton.setText("开始");
+			startItem.setText("开始点名");
 
 		} else
 		{
-			label.setText("准备点名");
-			JOptionPane.showMessageDialog(this, "名单为空！");
-			return;
+			// 否则开始
+			if (list.size() > 0)
+			{
+				runFlag = true;
+				startButton.setText("停止");
+				startItem.setText("停止点名");
+				// 循环显示
+				showNames();
+
+			} else
+			{
+				label.setText("准备点名");
+				JOptionPane.showMessageDialog(this, "名单为空！");
+				return;
+			}
 		}
+
 	}
 
 	/**
@@ -179,20 +199,12 @@ public class RollCallFrame extends KFrame
 	 */
 	private void showNames()
 	{
-		while (true)
-		{
-			for (String name : list)
-			{
-				label.setText(name);
-				try
-				{
-					Thread.sleep(1000);
-				} catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-			}
-		}
+		// 创建定时器
+		Timer timer = new Timer();
+		// 任务
+		TimerTask task = new ShowNamesTask(list, label);
+		// 安排执行
+		timer.schedule(task, 10, 100);
 	}
 
 	/**
@@ -200,7 +212,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createEditDialog()
 	{
-		new EditDialog();
+		new EditDialog(this);
 	}
 
 	/**
@@ -208,7 +220,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createSettingDialog()
 	{
-		new SettingDialog();
+		new SettingDialog(this);
 	}
 
 }

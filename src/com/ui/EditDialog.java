@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -29,13 +30,15 @@ public class EditDialog extends KDialog
 	/**
 	 * 构造方法
 	 */
-	public EditDialog()
+	public EditDialog(JFrame owner)
 	{
 		// 设置标题
 		setTitle("编辑名单");
 		// 设置大小
 		setSize(400, 300);
 		setMinimumSize(new Dimension(400, 300));
+		// 设置位置
+		setLocationRelativeTo(owner);
 		// 设置阻塞
 		setModal(true);
 		// 设置布局
@@ -104,7 +107,7 @@ public class EditDialog extends KDialog
 		// 清空集合
 		RollCallFrame.list.clear();
 		// 分割
-		String[] names = textArea.getText().split(" ");
+		String[] names = textArea.getText().split("\n");
 		// 遍历保存进集合
 		for (String name : names)
 		{
