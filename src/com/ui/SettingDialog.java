@@ -22,7 +22,7 @@ public class SettingDialog extends KDialog
 		// 设置阻塞
 		setModal(true);
 		// 设置关闭方式
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		validate();
 		// 显示界面
