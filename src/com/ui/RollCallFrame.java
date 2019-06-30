@@ -78,12 +78,16 @@ public class RollCallFrame extends KFrame
 
 		// 创建菜单
 		JMenu startMenu = new JMenu("开始");
+		startMenu.setFont(new Font("宋体", Font.PLAIN, 18));
 		JMenu editMenu = new JMenu("编辑");
+		editMenu.setFont(new Font("宋体", Font.PLAIN, 18));
 		JMenu settingMenu = new JMenu("设置");
+		settingMenu.setFont(new Font("宋体", Font.PLAIN, 18));
 
 		// 创建菜单项
 		// 开始点名
 		startItem = new JMenuItem("开始点名");
+		startItem.setFont(new Font("宋体", Font.PLAIN, 18));
 		startItem.addActionListener(this);
 		startMenu.add(startItem);
 
@@ -91,18 +95,21 @@ public class RollCallFrame extends KFrame
 
 		// 退出
 		exitItem = new JMenuItem("退出");
+		exitItem.setFont(new Font("宋体", Font.PLAIN, 18));
 		exitItem.addActionListener(this);
 		startMenu.add(exitItem);
 		menuBar.add(startMenu);
 
 		// 编辑名单
 		editItem = new JMenuItem("编辑名单");
+		editItem.setFont(new Font("宋体", Font.PLAIN, 18));
 		editItem.addActionListener(this);
 		editMenu.add(editItem);
 		menuBar.add(editMenu);
 
 		// 静音
 		soundItem = new JCheckBoxMenuItem("静音");
+		soundItem.setFont(new Font("宋体", Font.PLAIN, 18));
 		soundItem.addActionListener(this);
 		settingMenu.add(soundItem);
 
@@ -110,6 +117,7 @@ public class RollCallFrame extends KFrame
 
 		// 设置
 		settingItem = new JMenuItem("设置...");
+		settingItem.setFont(new Font("宋体", Font.PLAIN, 18));
 		settingItem.addActionListener(this);
 		settingMenu.add(settingItem);
 
