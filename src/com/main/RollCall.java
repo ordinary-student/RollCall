@@ -1,4 +1,4 @@
-package com.test;
+package com.main;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
