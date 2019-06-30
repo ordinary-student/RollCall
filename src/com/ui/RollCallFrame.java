@@ -58,6 +58,7 @@ public class RollCallFrame extends KFrame
 		setTitle("随机点名器");
 		// 设置大小
 		setSize(400, 300);
+		setMinimumSize(new Dimension(400, 300));
 		// 设置居中
 		WindowUtil.center(this);
 		// 设置关闭方式
