@@ -34,7 +34,7 @@ public class RollCallFrame extends KFrame
 	private JLabel label;
 	private JButton startButton;
 	// 名单集合
-	private static ArrayList<String> list = new ArrayList<String>();
+	public static ArrayList<String> list = new ArrayList<String>();
 	// 声音标志
 	private boolean soundFlag = true;
 
