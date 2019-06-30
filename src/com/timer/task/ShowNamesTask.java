@@ -19,6 +19,7 @@ public class ShowNamesTask extends TimerTask
 {
 	private List<String> list;
 	private JLabel label;
+	private boolean soundFlag = false;
 
 	/*
 	 * 构造方法
@@ -50,9 +51,15 @@ public class ShowNamesTask extends TimerTask
 			// 播放显示音效
 			if (RollCallFrame.soundFlag)
 			{
-				new PlaySoundThread("show.wav").start();
+				// 隔一条播放一次
+				soundFlag = !soundFlag;
+				if (soundFlag)
+				{
+					new PlaySoundThread("show.wav").start();
+				}
 			}
 
+			// 停顿
 			try
 			{
 				Thread.sleep(60);
