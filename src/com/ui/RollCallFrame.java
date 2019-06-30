@@ -22,6 +22,9 @@ public class RollCallFrame extends KFrame
 	private static final long serialVersionUID = 2632712392130634764L;
 	private JLabel label;
 	private JMenuItem editItem;
+	private JMenuItem startItem;
+	private JMenuItem exitItem;
+	private JMenuItem settingItem;
 
 	/*
 	 * 构造方法
@@ -48,15 +51,32 @@ public class RollCallFrame extends KFrame
 
 		// 创建菜单栏
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setFont(new Font("宋体", Font.CENTER_BASELINE, 15));
 
 		// 创建菜单
+		JMenu startMenu = new JMenu("开始");
+		JMenu editMenu = new JMenu("编辑");
 		JMenu settingMenu = new JMenu("设置");
 
 		// 创建菜单项
+		startItem = new JMenuItem("开始点名");
+		startItem.addActionListener(this);
+		startMenu.add(startItem);
+
+		exitItem = new JMenuItem("退出");
+		exitItem.addActionListener(this);
+		startMenu.add(exitItem);
+		menuBar.add(startMenu);
+
+		// 编辑
 		editItem = new JMenuItem("编辑名单");
 		editItem.addActionListener(this);
-		settingMenu.add(editItem);
+		editMenu.add(editItem);
+		menuBar.add(editMenu);
+
+		// 设置
+		settingItem = new JMenuItem("编辑名单");
+		settingItem.addActionListener(this);
+		settingMenu.add(settingItem);
 
 		menuBar.add(settingMenu);
 
