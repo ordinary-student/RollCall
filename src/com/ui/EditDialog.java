@@ -101,12 +101,14 @@ public class EditDialog extends KDialog
 	 */
 	private void save()
 	{
+		// 清空集合
+		RollCallFrame.list.clear();
 		// 分割
 		String[] names = textArea.getText().split(" ");
 		// 遍历保存进集合
 		for (String name : names)
 		{
-
+			RollCallFrame.list.add(name);
 		}
 
 		textArea.setEditable(false);
