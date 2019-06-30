@@ -1,8 +1,10 @@
 package com.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -46,6 +48,8 @@ public class EditDialog extends KDialog
 		// 编辑区
 		textArea = new JTextArea();
 		textArea.setFont(new Font("宋体", Font.PLAIN, 18));
+		textArea.setBackground(new Color(245, 245, 245));
+		textArea.setEditable(false);
 		getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
 
 		// 按钮面板
@@ -73,6 +77,40 @@ public class EditDialog extends KDialog
 		validate();
 		// 显示界面
 		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		// 判断来源
+		if (e.getSource() == editButton)
+		{
+			// 编辑
+			textArea.setEditable(true);
+			textArea.setBackground(Color.white);
+
+		} else if (e.getSource() == saveButton)
+		{
+			// 保存
+			save();
+		}
+	}
+
+	/**
+	 * 保存
+	 */
+	private void save()
+	{
+		// 分割
+		String[] names = textArea.getText().split(" ");
+		// 遍历保存进集合
+		for (String name : names)
+		{
+
+		}
+
+		textArea.setEditable(false);
+		textArea.setBackground(new Color(245, 245, 245));
 	}
 
 }
