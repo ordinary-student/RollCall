@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 import com.utils.WindowUtil;
@@ -129,7 +130,7 @@ public class RollCallFrame extends KFrame
 	public void actionPerformed(ActionEvent e)
 	{
 		// 判断来源
-		if (e.getSource() == startItem)
+		if ((e.getSource() == startItem) || (e.getSource() == startButton))
 		{
 			// 开始点名
 			startRollCall();
@@ -160,7 +161,14 @@ public class RollCallFrame extends KFrame
 	 */
 	private void startRollCall()
 	{
+		if (list.size() > 0)
+		{
 
+		} else
+		{
+			JOptionPane.showMessageDialog(this, "名单为空！");
+			return;
+		}
 	}
 
 	/**
