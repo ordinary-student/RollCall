@@ -1,6 +1,7 @@
 package com.timer.task;
 
 import java.util.List;
+import java.util.Random;
 import java.util.TimerTask;
 
 import javax.swing.JLabel;
@@ -33,28 +34,26 @@ public class ShowNamesTask extends TimerTask
 		// 判断运行标志
 		if (RollCallFrame.runFlag)
 		{
-			// 遍历显示
-			for (String name : list)
+			// 获得当前时间的毫秒数
+			long time = System.currentTimeMillis();
+			// 作为种子数传入到Random的构造器中
+			Random rand = new Random(time);
+
+			// 生成随机数
+			int index = rand.nextInt(list.size());
+			// 获取名字
+			String name = list.get(index);
+			// 显示名字
+			label.setText(name);
+
+			try
 			{
-				// 再次判断运行标志
-				if (RollCallFrame.runFlag)
-				{
-					// 显示名字
-					label.setText(name);
-					try
-					{
-						Thread.sleep(100);
-					} catch (InterruptedException e)
-					{
-						e.printStackTrace();
-					}
-				} else
-				{
-					// 取消任务
-					cancel();
-					break;
-				}
+				Thread.sleep(60);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
 			}
+
 		} else
 		{
 			// 取消任务

@@ -204,7 +204,7 @@ public class RollCallFrame extends KFrame
 		// 任务
 		TimerTask task = new ShowNamesTask(list, label);
 		// 安排执行
-		timer.schedule(task, 10, 100);
+		timer.schedule(task, 10, 60);
 	}
 
 	/**

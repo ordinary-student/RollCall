@@ -32,6 +32,17 @@ public class EditDialog extends KDialog
 	 */
 	public EditDialog(JFrame owner)
 	{
+		// 初始化界面
+		initUI(owner);
+	}
+
+	/**
+	 * 初始化界面
+	 * 
+	 * @param owner
+	 */
+	public void initUI(JFrame owner)
+	{
 		// 设置标题
 		setTitle("编辑名单");
 		// 设置大小
@@ -54,6 +65,8 @@ public class EditDialog extends KDialog
 		textArea.setBackground(new Color(245, 245, 245));
 		textArea.setEditable(false);
 		getContentPane().add(new JScrollPane(textArea), BorderLayout.CENTER);
+		// 显示已有名字
+		showNames();
 
 		// 按钮面板
 		JPanel buttonPanel = new JPanel();
@@ -118,4 +131,20 @@ public class EditDialog extends KDialog
 		textArea.setBackground(new Color(245, 245, 245));
 	}
 
+	/*
+	 * 显示名字
+	 */
+	private void showNames()
+	{
+		// 有数据
+		if (RollCallFrame.list.size() > 0)
+		{
+			// 遍历
+			for (String name : RollCallFrame.list)
+			{
+				textArea.append(name);
+				textArea.append("\r\n");
+			}
+		}
+	}
 }
