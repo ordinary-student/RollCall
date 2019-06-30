@@ -15,5 +15,8 @@ public class SettingDialog extends KDialog
 	 */
 	public SettingDialog()
 	{
+		validate();
+		// 显示界面
+		setVisible(true);
 	}
 }
