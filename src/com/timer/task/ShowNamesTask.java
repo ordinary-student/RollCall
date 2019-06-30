@@ -6,6 +6,7 @@ import java.util.TimerTask;
 
 import javax.swing.JLabel;
 
+import com.thread.PlaySoundThread;
 import com.ui.RollCallFrame;
 
 /**
@@ -49,7 +50,7 @@ public class ShowNamesTask extends TimerTask
 			// 播放显示音效
 			if (RollCallFrame.soundFlag)
 			{
-				// TODO...
+				new PlaySoundThread("show.wav");
 			}
 
 			try
@@ -67,7 +68,7 @@ public class ShowNamesTask extends TimerTask
 			// 播放停止音效
 			if (RollCallFrame.soundFlag)
 			{
-				// TODO...
+				new PlaySoundThread("stop.wav");
 			}
 		}
 	}
