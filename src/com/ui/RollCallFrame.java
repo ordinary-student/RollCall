@@ -169,29 +169,43 @@ public class RollCallFrame extends KFrame
 		// 如果已运行则停止
 		if (runFlag)
 		{
-			runFlag = false;
-			startButton.setText("开始");
-			startItem.setText("开始点名");
-
+			stop();
 		} else
 		{
 			// 否则开始
-			if (list.size() > 0)
-			{
-				runFlag = true;
-				startButton.setText("停止");
-				startItem.setText("停止点名");
-				// 循环显示
-				showNames();
-
-			} else
-			{
-				label.setText("准备点名");
-				JOptionPane.showMessageDialog(this, "名单为空！");
-				return;
-			}
+			start();
 		}
+	}
 
+	/**
+	 * 开始
+	 */
+	private void start()
+	{
+		if (list.size() > 0)
+		{
+			runFlag = true;
+			startButton.setText("停止");
+			startItem.setText("停止点名");
+			// 循环显示
+			showNames();
+
+		} else
+		{
+			label.setText("准备点名");
+			JOptionPane.showMessageDialog(this, "名单为空！");
+			return;
+		}
+	}
+
+	/**
+	 * 停止
+	 */
+	private void stop()
+	{
+		runFlag = false;
+		startButton.setText("开始");
+		startItem.setText("开始点名");
 	}
 
 	/**
