@@ -163,12 +163,35 @@ public class RollCallFrame extends KFrame
 	{
 		if (list.size() > 0)
 		{
+			// 循环显示
+			showNames();
 
 		} else
 		{
 			label.setText("准备点名");
 			JOptionPane.showMessageDialog(this, "名单为空！");
 			return;
+		}
+	}
+
+	/**
+	 * 循环显示名字
+	 */
+	private void showNames()
+	{
+		while (true)
+		{
+			for (String name : list)
+			{
+				label.setText(name);
+				try
+				{
+					Thread.sleep(1000);
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
