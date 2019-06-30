@@ -176,7 +176,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createEditDialog()
 	{
-
+		new EditDialog();
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createSettingDialog()
 	{
-
+		new SettingDialog();
 	}
 
 }
