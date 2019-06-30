@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBoxMenuItem;
@@ -34,7 +35,7 @@ public class RollCallFrame extends KFrame
 	private JLabel label;
 	private JButton startButton;
 	// 名单集合
-	public static ArrayList<String> list = new ArrayList<String>();
+	public static List<String> list = new ArrayList<String>();
 	// 声音标志
 	private boolean soundFlag = true;
 
@@ -165,6 +166,7 @@ public class RollCallFrame extends KFrame
 
 		} else
 		{
+			label.setText("准备点名");
 			JOptionPane.showMessageDialog(this, "名单为空！");
 			return;
 		}
