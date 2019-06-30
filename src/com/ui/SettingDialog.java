@@ -18,7 +18,7 @@ public class SettingDialog extends KDialog
 	public SettingDialog(JFrame owner)
 	{
 		// 设置标题
-		setTitle("编辑名单");
+		setTitle("设置");
 		// 设置大小
 		setSize(400, 300);
 		// 设置位置
