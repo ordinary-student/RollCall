@@ -53,9 +53,9 @@ public class ShowNamesTask extends TimerTask
 			{
 				// 隔3条播放一次
 				soundCount++;
-				if (soundCount % 2 == 0)
+				if (soundCount % 3 == 0)
 				{
-					new PlaySoundThread("333.wav").start();
+					new PlaySoundThread("show.wav").start();
 				}
 			}
 
