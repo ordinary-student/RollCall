@@ -8,7 +8,7 @@ package com.entity;
  */
 public class Person
 {
-	private int id;
+	private String id;
 	private String name;
 
 	/*
@@ -19,10 +19,16 @@ public class Person
 
 	}
 
+	public Person(String id, String name)
+	{
+		this.id = id;
+		this.name = name;
+	}
+
 	/**
 	 * @return id
 	 */
-	public int getId()
+	public String getId()
 	{
 		return this.id;
 	}
@@ -31,7 +37,7 @@ public class Person
 	 * @param id
 	 *            要设置的 id
 	 */
-	public void setId(int id)
+	public void setId(String id)
 	{
 		this.id = id;
 	}
