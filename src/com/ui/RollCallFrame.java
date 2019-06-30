@@ -122,5 +122,55 @@ public class RollCallFrame extends KFrame
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+		// 判断来源
+		if (e.getSource() == startItem)
+		{
+			// 开始点名
+			startRollcall();
+
+		} else if (e.getSource() == exitItem)
+		{
+			// 退出
+			System.exit(0);
+
+		} else if (e.getSource() == editItem)
+		{
+			// 编辑名单
+			createEditDialog();
+
+		} else if (e.getSource() == soundItem)
+		{
+			soundFlag = !soundItem.isSelected();
+
+		} else if (e.getSource() == settingItem)
+		{
+			// 设置
+			createSettingDialog();
+		}
 	}
+
+	/**
+	 * 开始点名
+	 */
+	private void startRollcall()
+	{
+
+	}
+
+	/**
+	 * 创建编辑窗口
+	 */
+	private void createEditDialog()
+	{
+
+	}
+
+	/**
+	 * 创建设置窗口
+	 */
+	private void createSettingDialog()
+	{
+
+	}
+
 }
