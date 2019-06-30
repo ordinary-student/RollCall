@@ -3,7 +3,7 @@ package com.ui;
 /**
  * 点名小程序主窗口类
  * 
- * @author Administrator
+ * @author ordinary-student
  *
  */
 public class RollCallFrame extends KFrame
