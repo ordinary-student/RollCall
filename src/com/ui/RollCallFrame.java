@@ -134,7 +134,7 @@ public class RollCallFrame extends KFrame
 		// 按钮
 		startButton = new JButton("开始");
 		startButton.setPreferredSize(new Dimension(400, 50));
-		startButton.setFont(new Font("宋体", Font.PLAIN, 20));
+		startButton.setFont(new Font("宋体", Font.PLAIN, 24));
 		startButton.setFocusPainted(false);
 		startButton.addActionListener(this);
 		getContentPane().add(startButton, BorderLayout.SOUTH);
