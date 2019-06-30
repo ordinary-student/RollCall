@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -39,8 +40,12 @@ public class RollCallFrame extends KFrame
 	private JButton startButton;
 	// 名单集合
 	public static List<String> list = new ArrayList<String>();
+	// 定时器
+	public javax.swing.Timer autoTimer;
 	// 运行标志
 	public static boolean runFlag = false;
+	// 自动停止标志
+	private boolean autoStopFlag = true;
 	// 声音标志
 	private boolean soundFlag = true;
 
@@ -201,11 +206,16 @@ public class RollCallFrame extends KFrame
 	/**
 	 * 停止
 	 */
-	private void stop()
+	protected void stop()
 	{
 		runFlag = false;
 		startButton.setText("开始");
 		startItem.setText("开始点名");
+		// 取消自动停止的任务
+		if (autoTimer != null)
+		{
+			autoTimer.stop();
+		}
 	}
 
 	/**
@@ -213,12 +223,39 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createShowNamesTask()
 	{
+		// 自动停止
+		if (autoStopFlag)
+		{
+			createAutoStopTask();
+		}
+
 		// 创建定时器
 		Timer timer = new Timer();
 		// 任务
 		TimerTask task = new ShowNamesTask(list, label);
 		// 安排执行
 		timer.schedule(task, 10, 60);
+	}
+
+	/**
+	 * 创建自动停止任务
+	 */
+	private void createAutoStopTask()
+	{
+		// 定时3秒自动停止
+		autoTimer = new javax.swing.Timer(3000, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				stop();
+			}
+		});
+
+		// 只执行一次
+		autoTimer.setRepeats(false);
+		// 启动定时器
+		autoTimer.start();
 	}
 
 	/**
