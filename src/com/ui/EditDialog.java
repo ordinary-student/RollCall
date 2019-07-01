@@ -5,14 +5,19 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import com.utils.FileUtil;
 
 /**
  * 编辑名单窗口
@@ -25,7 +30,9 @@ public class EditDialog extends KDialog
 	private static final long serialVersionUID = -2252920404325741684L;
 	private JTextArea textArea;
 	private JButton editButton;
+	private JButton importButton;
 	private JButton saveButton;
+	private JButton cancelButton;
 
 	/**
 	 * 构造方法
@@ -72,13 +79,30 @@ public class EditDialog extends KDialog
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BorderLayout());
 
+		// 上
+		JPanel upPanel = new JPanel();
+		upPanel.setLayout(new BorderLayout());
+
 		// 编辑按钮
 		editButton = new JButton("编辑");
 		editButton.setPreferredSize(new Dimension(100, 30));
 		editButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		editButton.setFocusPainted(false);
 		editButton.addActionListener(this);
-		buttonPanel.add(editButton, BorderLayout.NORTH);
+		upPanel.add(editButton, BorderLayout.NORTH);
+
+		// 导入按钮
+		importButton = new JButton("导入...");
+		importButton.setPreferredSize(new Dimension(100, 30));
+		importButton.setFont(new Font("宋体", Font.PLAIN, 16));
+		importButton.setFocusPainted(false);
+		importButton.addActionListener(this);
+		upPanel.add(importButton, BorderLayout.SOUTH);
+		buttonPanel.add(upPanel, BorderLayout.NORTH);
+
+		// 下
+		JPanel downPanel = new JPanel();
+		downPanel.setLayout(new BorderLayout());
 
 		// 保存按钮
 		saveButton = new JButton("保存");
@@ -86,7 +110,16 @@ public class EditDialog extends KDialog
 		saveButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		saveButton.setFocusPainted(false);
 		saveButton.addActionListener(this);
-		buttonPanel.add(saveButton, BorderLayout.SOUTH);
+		downPanel.add(saveButton, BorderLayout.NORTH);
+
+		// 取消按钮
+		cancelButton = new JButton("取消");
+		cancelButton.setPreferredSize(new Dimension(100, 30));
+		cancelButton.setFont(new Font("宋体", Font.PLAIN, 16));
+		cancelButton.setFocusPainted(false);
+		cancelButton.addActionListener(this);
+		downPanel.add(cancelButton, BorderLayout.SOUTH);
+		buttonPanel.add(downPanel, BorderLayout.SOUTH);
 
 		getContentPane().add(buttonPanel, BorderLayout.EAST);
 
@@ -105,10 +138,65 @@ public class EditDialog extends KDialog
 			textArea.setEditable(true);
 			textArea.setBackground(Color.white);
 
+		} else if (e.getSource() == importButton)
+		{
+			// 导入名单
+			importNames();
+
 		} else if (e.getSource() == saveButton)
 		{
 			// 保存
 			save();
+
+		} else if (e.getSource() == cancelButton)
+		{
+			// 取消
+			this.dispose();
+		}
+	}
+
+	/**
+	 * 导入名单
+	 */
+	private void importNames()
+	{
+		// 创建文件选择器
+		JFileChooser fileChooser = new JFileChooser();
+		// 设置文件选择模式
+		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		// 设置标题
+		fileChooser.setDialogTitle("打开文件");
+		// 显示弹窗
+		int result = fileChooser.showOpenDialog(this);
+		// 选择取消
+		if (result == JFileChooser.CANCEL_OPTION)
+		{
+			// 退出方法
+			return;
+		}
+
+		// 获取选择的文件
+		File selectedFile = fileChooser.getSelectedFile();
+		// 获取文件名
+		String fileName = fileChooser.getName(selectedFile);
+
+		// 判断
+		if ((selectedFile == null) || (fileName.equals("")))
+		{
+			JOptionPane.showMessageDialog(this, "不合法的文件名", "不合法的文件名", JOptionPane.ERROR_MESSAGE);
+			// 退出方法
+			return;
+		}
+
+		// 读取文件
+		String allNames = FileUtil.readFile(selectedFile);
+		// 分割
+		String[] names = allNames.split("\n");
+		// 遍历显示
+		for (String name : names)
+		{
+			textArea.append(name);
+			textArea.append("\r\n");
 		}
 	}
 
