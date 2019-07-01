@@ -3,11 +3,14 @@ package com.ui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -25,35 +28,50 @@ public class SettingDialog extends KDialog
 	private JButton applyButton;
 	private JButton cancelButton;
 	private JCheckBox repeatCheckBox;
+	private JButton defaultButton;
 
 	/*
 	 * 构造方法
 	 */
 	public SettingDialog(JFrame owner)
 	{
+		// 初始化界面
+		initUI(owner);
+	}
+
+	/*
+	 * 初始化界面
+	 */
+	public void initUI(JFrame owner)
+	{
 		// 设置标题
 		setTitle("设置");
 		// 设置大小
-		setSize(400, 300);
-		setMinimumSize(new Dimension(400, 300));
+		setSize(550, 300);
+		setMinimumSize(new Dimension(550, 300));
 		// 设置位置
 		setLocationRelativeTo(owner);
 		// 设置阻塞
 		setModal(true);
 		// 设置布局
 		getContentPane().setLayout(new BorderLayout(10, 10));
+		// 设置边框
+		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(""));
 		// 设置关闭方式
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 		// 设置面板
 		JPanel settingPanel = new JPanel();
-		settingPanel.setLayout(new BorderLayout());
+		settingPanel.setLayout(new BorderLayout(5, 5));
 
-		// 自动设置
+		// 自动/手动设置面板
+		JPanel amPanel = new JPanel();
+		amPanel.setBorder(BorderFactory.createTitledBorder("设置自动/手动停止滚动"));
+		amPanel.setLayout(new BorderLayout(5, 5));
+
+		// 自动设置面板
 		JPanel autoPanel = new JPanel();
-		autoPanel.setPreferredSize(new Dimension(150, 90));
-		autoPanel.setBorder(BorderFactory.createTitledBorder("设置自动/手动停止滚动"));
-		autoPanel.setLayout(new BorderLayout(10, 10));
+		autoPanel.setLayout(new BorderLayout(5, 5));
 
 		// 按钮组
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -62,14 +80,24 @@ public class SettingDialog extends KDialog
 		autoStopCheckBox = new JCheckBox("自动停止", true);
 		autoStopCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		autoStopCheckBox.setFocusPainted(false);
-		autoPanel.add(autoStopCheckBox, BorderLayout.NORTH);
+		autoStopCheckBox.addActionListener(this);
+		autoPanel.add(autoStopCheckBox, BorderLayout.WEST);
+
+		// 复选框
+		JComboBox<String> timeComboBox = new JComboBox<String>();
+		timeComboBox.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		timeComboBox.setFocusable(false);
+		timeComboBox.addItem("2秒后");
+		autoPanel.add(timeComboBox, BorderLayout.EAST);
+		amPanel.add(autoPanel, BorderLayout.NORTH);
 
 		// 手动停止勾选框
 		manualStopCheckBox = new JCheckBox("手动停止");
 		manualStopCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		manualStopCheckBox.setFocusPainted(false);
-		autoPanel.add(manualStopCheckBox, BorderLayout.SOUTH);
-		settingPanel.add(autoPanel, BorderLayout.NORTH);
+		manualStopCheckBox.addActionListener(this);
+		amPanel.add(manualStopCheckBox, BorderLayout.SOUTH);
+		settingPanel.add(amPanel, BorderLayout.NORTH);
 
 		// 添加进按钮组
 		buttonGroup.add(autoStopCheckBox);
@@ -78,12 +106,13 @@ public class SettingDialog extends KDialog
 		// 重复点名面板
 		JPanel repeatPanel = new JPanel();
 		repeatPanel.setBorder(BorderFactory.createTitledBorder("设置是否重复点名"));
-		repeatPanel.setLayout(new BorderLayout());
+		repeatPanel.setLayout(new BorderLayout(5, 5));
 
 		// 重复点名勾选框
-		repeatCheckBox = new JCheckBox("重复点名(被点过的名字可以继续重复显示)");
+		repeatCheckBox = new JCheckBox("重复点名(被点过的名字可以继续重复显示)", true);
 		repeatCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		repeatCheckBox.setFocusPainted(false);
+		repeatCheckBox.addActionListener(this);
 		repeatPanel.add(repeatCheckBox, BorderLayout.CENTER);
 		settingPanel.add(repeatPanel, BorderLayout.SOUTH);
 
@@ -91,15 +120,28 @@ public class SettingDialog extends KDialog
 
 		// 按钮面板
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BorderLayout());
+		buttonPanel.setLayout(new BorderLayout(5, 5));
 
-		// 下
+		// 上面板
+		JPanel upPanel = new JPanel();
+		upPanel.setLayout(new BorderLayout(10, 10));
+
+		// 编辑按钮
+		defaultButton = new JButton("恢复默认设置");
+		defaultButton.setPreferredSize(new Dimension(150, 35));
+		defaultButton.setFont(new Font("宋体", Font.PLAIN, 16));
+		defaultButton.setFocusPainted(false);
+		defaultButton.addActionListener(this);
+		upPanel.add(defaultButton, BorderLayout.CENTER);
+		buttonPanel.add(upPanel, BorderLayout.NORTH);
+
+		// 下面板
 		JPanel downPanel = new JPanel();
-		downPanel.setLayout(new BorderLayout());
+		downPanel.setLayout(new BorderLayout(10, 10));
 
 		// 保存按钮
 		applyButton = new JButton("应用");
-		applyButton.setPreferredSize(new Dimension(100, 30));
+		applyButton.setPreferredSize(new Dimension(100, 35));
 		applyButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		applyButton.setFocusPainted(false);
 		applyButton.addActionListener(this);
@@ -107,7 +149,7 @@ public class SettingDialog extends KDialog
 
 		// 取消按钮
 		cancelButton = new JButton("取消");
-		cancelButton.setPreferredSize(new Dimension(100, 30));
+		cancelButton.setPreferredSize(new Dimension(100, 35));
 		cancelButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		cancelButton.setFocusPainted(false);
 		cancelButton.addActionListener(this);
@@ -119,5 +161,29 @@ public class SettingDialog extends KDialog
 		validate();
 		// 显示界面
 		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e)
+	{
+		// 判断来源
+		if (e.getSource() == autoStopCheckBox)
+		{
+
+		} else if (e.getSource() == manualStopCheckBox)
+		{
+			// 手动停止
+			// RollCallFrame.autoStopFlag = false;
+
+		} else if (e.getSource() == repeatCheckBox)
+		{
+
+		} else if (e.getSource() == applyButton)
+		{
+
+		} else if (e.getSource() == cancelButton)
+		{
+			this.dispose();
+		}
 	}
 }

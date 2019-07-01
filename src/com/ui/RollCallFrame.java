@@ -38,14 +38,17 @@ public class RollCallFrame extends KFrame
 	private JMenuItem settingItem;
 	private JLabel label;
 	private JButton startButton;
+
 	// 名单集合
 	public static List<String> list = new ArrayList<String>();
+
 	// 定时器
 	public javax.swing.Timer autoTimer;
+
 	// 运行标志
 	public static boolean runFlag = false;
 	// 自动停止标志
-	private boolean autoStopFlag = true;
+	public static boolean autoStopFlag = true;
 	// 声音标志
 	public static boolean soundFlag = true;
 
@@ -234,6 +237,7 @@ public class RollCallFrame extends KFrame
 		// 自动停止
 		if (autoStopFlag)
 		{
+			// 创建自动停止任务
 			createAutoStopTask();
 		}
 

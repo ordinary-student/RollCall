@@ -81,7 +81,7 @@ public class EditDialog extends KDialog
 
 		// 上
 		JPanel upPanel = new JPanel();
-		upPanel.setLayout(new BorderLayout());
+		upPanel.setLayout(new BorderLayout(10, 10));
 
 		// 编辑按钮
 		editButton = new JButton("编辑");
@@ -102,7 +102,7 @@ public class EditDialog extends KDialog
 
 		// 下
 		JPanel downPanel = new JPanel();
-		downPanel.setLayout(new BorderLayout());
+		downPanel.setLayout(new BorderLayout(10, 10));
 
 		// 保存按钮
 		saveButton = new JButton("保存");
