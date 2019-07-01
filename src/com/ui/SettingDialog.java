@@ -119,7 +119,6 @@ public class SettingDialog extends KDialog
 		repeatCheckBox = new JCheckBox("重复点名(被点过的名字可以继续重复显示)", true);
 		repeatCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		repeatCheckBox.setFocusPainted(false);
-		repeatCheckBox.addActionListener(this);
 		repeatPanel.add(repeatCheckBox, BorderLayout.CENTER);
 		settingPanel.add(repeatPanel, BorderLayout.SOUTH);
 
@@ -180,9 +179,6 @@ public class SettingDialog extends KDialog
 		{
 			timeComboBox.setVisible(autoStopCheckBox.isSelected());
 
-		} else if (e.getSource() == repeatCheckBox)
-		{
-
 		} else if (e.getSource() == defaultButton)
 		{
 			// 恢复默认
@@ -206,9 +202,10 @@ public class SettingDialog extends KDialog
 	{
 		// 自动停止
 		RollCallFrame.autoStopFlag = autoStopCheckBox.isSelected();
+		// 设置自动停止时间
+		RollCallFrame.autoStopTime = timeComboBox.getSelectedIndex() + 1;
 		// 重复点名
 		RollCallFrame.repeatFlag = repeatCheckBox.isSelected();
-
 	}
 
 	/**

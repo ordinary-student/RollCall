@@ -207,12 +207,15 @@ public class EditDialog extends KDialog
 	{
 		// 清空集合
 		RollCallFrame.list.clear();
+		RollCallFrame.list2.clear();
 		// 分割
 		String[] names = textArea.getText().split("\n");
 		// 遍历保存进集合
 		for (String name : names)
 		{
 			RollCallFrame.list.add(name);
+			// 备份
+			RollCallFrame.list2.add(name);
 		}
 
 		textArea.setEditable(false);

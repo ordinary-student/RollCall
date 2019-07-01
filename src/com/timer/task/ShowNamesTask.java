@@ -77,6 +77,12 @@ public class ShowNamesTask extends TimerTask
 			{
 				new PlaySoundThread("stop.wav").start();
 			}
+
+			// 不重复则从集合中移除名字
+			if (!RollCallFrame.repeatFlag)
+			{
+				list.remove(label.getText());
+			}
 		}
 	}
 

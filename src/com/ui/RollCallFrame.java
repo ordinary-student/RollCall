@@ -41,6 +41,8 @@ public class RollCallFrame extends KFrame
 
 	// 名单集合
 	public static List<String> list = new ArrayList<String>();
+	// 备份名单集合
+	public static List<String> list2 = new ArrayList<String>();
 
 	// 定时器
 	public javax.swing.Timer autoTimer;
@@ -49,6 +51,8 @@ public class RollCallFrame extends KFrame
 	public static boolean runFlag = false;
 	// 自动停止标志
 	public static boolean autoStopFlag = true;
+	// 自动停止时间(秒)
+	public static int autoStopTime = 3;
 	// 重复点名标志
 	public static boolean repeatFlag = true;
 	// 声音标志
@@ -246,7 +250,7 @@ public class RollCallFrame extends KFrame
 		// 创建定时器
 		Timer timer = new Timer();
 		// 任务
-		TimerTask task = new ShowNamesTask(list, label);
+		TimerTask task = new ShowNamesTask(list2, label);
 		// 安排执行
 		timer.schedule(task, 10, 60);
 	}
@@ -256,8 +260,8 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createAutoStopTask()
 	{
-		// 3秒后自动停止
-		autoTimer = new javax.swing.Timer(3000, new ActionListener()
+		// autoStopTime秒后自动停止
+		autoTimer = new javax.swing.Timer(autoStopTime * 1000, new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
