@@ -206,12 +206,20 @@ public class RollCallFrame extends KFrame
 	{
 		if (list.size() > 0)
 		{
-			runFlag = true;
-			startButton.setText("停止");
-			startItem.setText("停止点名");
-			// 创建循环显示名字的任务
-			createShowNamesTask();
+			if (list2.size() > 0)
+			{
+				runFlag = true;
+				startButton.setText("停止");
+				startItem.setText("停止点名");
+				// 创建循环显示名字的任务
+				createShowNamesTask();
 
+			} else
+			{
+				label.setText("准备点名");
+				JOptionPane.showMessageDialog(this, "名单全部都被点过啦！");
+				return;
+			}
 		} else
 		{
 			label.setText("准备点名");
@@ -250,7 +258,7 @@ public class RollCallFrame extends KFrame
 		// 创建定时器
 		Timer timer = new Timer();
 		// 任务
-		TimerTask task = new ShowNamesTask(list2, label);
+		TimerTask task = new ShowNamesTask(label);
 		// 安排执行
 		timer.schedule(task, 10, 60);
 	}

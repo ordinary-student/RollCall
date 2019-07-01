@@ -17,16 +17,14 @@ import com.ui.RollCallFrame;
  */
 public class ShowNamesTask extends TimerTask
 {
-	private List<String> list;
 	private JLabel label;
 	private int soundCount = 0;
 
 	/*
 	 * 构造方法
 	 */
-	public ShowNamesTask(List<String> list, JLabel label)
+	public ShowNamesTask(JLabel label)
 	{
-		this.list = list;
 		this.label = label;
 	}
 
@@ -36,54 +34,80 @@ public class ShowNamesTask extends TimerTask
 		// 判断运行标志
 		if (RollCallFrame.runFlag)
 		{
-			// 获得当前时间的毫秒数
-			long time = System.currentTimeMillis();
-			// 作为种子数传入到Random的构造器中
-			Random rand = new Random(time);
-
-			// 生成随机数
-			int index = rand.nextInt(list.size());
-			// 获取名字
-			String name = list.get(index);
-			// 显示名字
-			label.setText(name);
-
-			// 播放显示音效
-			if (RollCallFrame.soundFlag)
+			// 如果备份集合还有名字
+			if (RollCallFrame.list2.size() > 0)
 			{
-				// 隔3条播放一次
-				soundCount++;
-				if (soundCount % 3 == 0)
+				// 获取随机名字，用来滚动显示
+				String name = getRandomName(RollCallFrame.list);
+				// 显示名字
+				label.setText(name);
+
+				// 播放显示音效
+				if (RollCallFrame.soundFlag)
 				{
-					new PlaySoundThread("show.wav").start();
+					// 隔3条播放一次
+					soundCount++;
+					if (soundCount % 3 == 0)
+					{
+						new PlaySoundThread("show.wav").start();
+					}
 				}
-			}
 
-			// 停顿
-			try
-			{
-				Thread.sleep(60);
-			} catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+				// 停顿
+				try
+				{
+					Thread.sleep(60);
+				} catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 
-		} else
+			} else// 如果备份集合空了
+			{
+				// 取消任务
+				cancel();
+			}
+		} else// 如果停止了
 		{
 			// 取消任务
 			cancel();
+
+			// 获取随机名字，用来在最后显示的，真正的点名
+			String name = getRandomName(RollCallFrame.list2);
+			// 显示名字
+			label.setText(name);
+
 			// 播放停止音效
 			if (RollCallFrame.soundFlag)
 			{
 				new PlaySoundThread("stop.wav").start();
 			}
 
-			// 不重复则从集合中移除名字
+			// 如果选择不重复，则从集合中移除名字
 			if (!RollCallFrame.repeatFlag)
 			{
-				list.remove(label.getText());
+				RollCallFrame.list2.remove(label.getText());
 			}
 		}
+	}
+
+	/**
+	 * 从集合里获取随机名字
+	 * 
+	 * @param list
+	 * @return
+	 */
+	private String getRandomName(List<String> list)
+	{
+		// 获得当前时间的毫秒数
+		long time = System.currentTimeMillis();
+		// 作为种子数传入到Random的构造器中
+		Random rand = new Random(time);
+
+		// 生成随机数
+		int index = rand.nextInt(list.size());
+		// 获取名字
+		return list.get(index);
 	}
 
 }

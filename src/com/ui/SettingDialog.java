@@ -80,7 +80,7 @@ public class SettingDialog extends KDialog
 		ButtonGroup buttonGroup = new ButtonGroup();
 
 		// 自动停止勾选框
-		autoStopCheckBox = new JCheckBox("自动停止", true);
+		autoStopCheckBox = new JCheckBox("自动停止", RollCallFrame.autoStopFlag);
 		autoStopCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		autoStopCheckBox.setFocusPainted(false);
 		autoStopCheckBox.addActionListener(this);
@@ -94,12 +94,14 @@ public class SettingDialog extends KDialog
 		{
 			timeComboBox.addItem(i + "秒后");
 		}
-		timeComboBox.setSelectedIndex(2);
+		timeComboBox.setSelectedIndex(RollCallFrame.autoStopTime - 1);
+		timeComboBox.addActionListener(this);
+		timeComboBox.setVisible(RollCallFrame.autoStopFlag);
 		autoPanel.add(timeComboBox, BorderLayout.CENTER);
 		amPanel.add(autoPanel, BorderLayout.NORTH);
 
 		// 手动停止勾选框
-		manualStopCheckBox = new JCheckBox("手动停止");
+		manualStopCheckBox = new JCheckBox("手动停止", !RollCallFrame.autoStopFlag);
 		manualStopCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		manualStopCheckBox.setFocusPainted(false);
 		manualStopCheckBox.addActionListener(this);
@@ -116,9 +118,10 @@ public class SettingDialog extends KDialog
 		repeatPanel.setLayout(new BorderLayout(5, 5));
 
 		// 重复点名勾选框
-		repeatCheckBox = new JCheckBox("重复点名(被点过的名字可以继续重复显示)", true);
+		repeatCheckBox = new JCheckBox("重复点名(被点过的名字可以继续重复显示)", RollCallFrame.repeatFlag);
 		repeatCheckBox.setFont(new Font("宋体", Font.PLAIN, 16));
 		repeatCheckBox.setFocusPainted(false);
+		repeatCheckBox.addActionListener(this);
 		repeatPanel.add(repeatCheckBox, BorderLayout.CENTER);
 		settingPanel.add(repeatPanel, BorderLayout.SOUTH);
 
@@ -150,6 +153,7 @@ public class SettingDialog extends KDialog
 		applyButton.setPreferredSize(new Dimension(100, 35));
 		applyButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		applyButton.setFocusPainted(false);
+		applyButton.setEnabled(false);
 		applyButton.addActionListener(this);
 		downPanel.add(applyButton, BorderLayout.NORTH);
 
@@ -173,24 +177,41 @@ public class SettingDialog extends KDialog
 		// 判断来源
 		if (e.getSource() == autoStopCheckBox)
 		{
+			// 自动
 			timeComboBox.setVisible(autoStopCheckBox.isSelected());
+			applyButton.setEnabled(true);
+
+		} else if (e.getSource() == timeComboBox)
+		{
+			// 时间
+			applyButton.setEnabled(true);
 
 		} else if (e.getSource() == manualStopCheckBox)
 		{
+			// 手动
 			timeComboBox.setVisible(autoStopCheckBox.isSelected());
+			applyButton.setEnabled(true);
+
+		} else if (e.getSource() == repeatCheckBox)
+		{
+			// 重复
+			applyButton.setEnabled(true);
 
 		} else if (e.getSource() == defaultButton)
 		{
 			// 恢复默认
 			setDefault();
+			applyButton.setEnabled(true);
 
 		} else if (e.getSource() == applyButton)
 		{
 			// 应用
 			apply();
+			applyButton.setEnabled(false);
 
 		} else if (e.getSource() == cancelButton)
 		{
+			// 关闭
 			this.dispose();
 		}
 	}
@@ -206,6 +227,17 @@ public class SettingDialog extends KDialog
 		RollCallFrame.autoStopTime = timeComboBox.getSelectedIndex() + 1;
 		// 重复点名
 		RollCallFrame.repeatFlag = repeatCheckBox.isSelected();
+		// 还原数据
+		if (RollCallFrame.repeatFlag)
+		{
+			// 清空备份集合
+			RollCallFrame.list2.clear();
+			// 复制
+			for (String name : RollCallFrame.list)
+			{
+				RollCallFrame.list2.add(name);
+			}
+		}
 	}
 
 	/**

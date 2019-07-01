@@ -111,6 +111,7 @@ public class EditDialog extends KDialog
 		saveButton.setPreferredSize(new Dimension(100, 30));
 		saveButton.setFont(new Font("宋体", Font.PLAIN, 16));
 		saveButton.setFocusPainted(false);
+		saveButton.setEnabled(false);
 		saveButton.addActionListener(this);
 		downPanel.add(saveButton, BorderLayout.NORTH);
 
@@ -137,16 +138,22 @@ public class EditDialog extends KDialog
 			// 编辑
 			textArea.setEditable(true);
 			textArea.setBackground(Color.white);
+			saveButton.setEnabled(true);
 
 		} else if (e.getSource() == importButton)
 		{
 			// 导入名单
 			importNames();
+			// 编辑
+			textArea.setEditable(true);
+			textArea.setBackground(Color.white);
+			saveButton.setEnabled(true);
 
 		} else if (e.getSource() == saveButton)
 		{
 			// 保存
 			save();
+			saveButton.setEnabled(false);
 
 		} else if (e.getSource() == cancelButton)
 		{
