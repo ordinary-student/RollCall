@@ -1,6 +1,7 @@
 package com.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class SettingDialog extends KDialog
 		setTitle("设置");
 		// 设置大小
 		setSize(400, 300);
+		setMinimumSize(new Dimension(400, 300));
 		// 设置位置
 		setLocationRelativeTo(owner);
 		// 设置阻塞
