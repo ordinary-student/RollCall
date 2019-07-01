@@ -65,6 +65,8 @@ public class EditDialog extends KDialog
 		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder("编辑名单，一行一个名字"));
 		// 设置关闭方式
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		// 不显示界面
+		setVisible(false);
 
 		// 编辑区
 		textArea = new JTextArea();
@@ -124,8 +126,6 @@ public class EditDialog extends KDialog
 		getContentPane().add(buttonPanel, BorderLayout.EAST);
 
 		validate();
-		// 显示界面
-		setVisible(true);
 	}
 
 	@Override

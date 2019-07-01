@@ -49,6 +49,8 @@ public class RollCallFrame extends KFrame
 	public static boolean runFlag = false;
 	// 自动停止标志
 	public static boolean autoStopFlag = true;
+	// 重复点名标志
+	public static boolean repeatFlag = true;
 	// 声音标志
 	public static boolean soundFlag = true;
 
@@ -75,6 +77,8 @@ public class RollCallFrame extends KFrame
 		WindowUtil.center(this);
 		// 设置关闭方式
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		// 不显示界面
+		setVisible(false);
 
 		// 创建菜单栏
 		JMenuBar menuBar = new JMenuBar();
@@ -143,8 +147,6 @@ public class RollCallFrame extends KFrame
 		getContentPane().add(startButton, BorderLayout.SOUTH);
 
 		validate();
-		// 显示界面
-		setVisible(true);
 	}
 
 	@Override
@@ -275,7 +277,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createEditDialog()
 	{
-		new EditDialog(this);
+		new EditDialog(this).setVisible(true);
 	}
 
 	/**
@@ -283,7 +285,7 @@ public class RollCallFrame extends KFrame
 	 */
 	private void createSettingDialog()
 	{
-		new SettingDialog(this);
+		new SettingDialog(this).setVisible(true);
 	}
 
 }

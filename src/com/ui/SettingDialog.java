@@ -25,10 +25,11 @@ public class SettingDialog extends KDialog
 	private static final long serialVersionUID = -1868260515328289597L;
 	private JCheckBox autoStopCheckBox;
 	private JCheckBox manualStopCheckBox;
-	private JButton applyButton;
-	private JButton cancelButton;
+	private JComboBox<String> timeComboBox;
 	private JCheckBox repeatCheckBox;
 	private JButton defaultButton;
+	private JButton applyButton;
+	private JButton cancelButton;
 
 	/*
 	 * 构造方法
@@ -47,8 +48,8 @@ public class SettingDialog extends KDialog
 		// 设置标题
 		setTitle("设置");
 		// 设置大小
-		setSize(550, 300);
-		setMinimumSize(new Dimension(550, 300));
+		setSize(550, 200);
+		setMinimumSize(new Dimension(550, 200));
 		// 设置位置
 		setLocationRelativeTo(owner);
 		// 设置阻塞
@@ -59,6 +60,8 @@ public class SettingDialog extends KDialog
 		((JComponent) getContentPane()).setBorder(BorderFactory.createTitledBorder(""));
 		// 设置关闭方式
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		// 不显示界面
+		setVisible(false);
 
 		// 设置面板
 		JPanel settingPanel = new JPanel();
@@ -71,7 +74,7 @@ public class SettingDialog extends KDialog
 
 		// 自动设置面板
 		JPanel autoPanel = new JPanel();
-		autoPanel.setLayout(new BorderLayout(5, 5));
+		autoPanel.setLayout(new BorderLayout(20, 5));
 
 		// 按钮组
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -84,11 +87,15 @@ public class SettingDialog extends KDialog
 		autoPanel.add(autoStopCheckBox, BorderLayout.WEST);
 
 		// 复选框
-		JComboBox<String> timeComboBox = new JComboBox<String>();
-		timeComboBox.setFont(new Font("微软雅黑", Font.PLAIN, 16));
+		timeComboBox = new JComboBox<String>();
+		timeComboBox.setFont(new Font("微软雅黑", Font.PLAIN, 15));
 		timeComboBox.setFocusable(false);
-		timeComboBox.addItem("2秒后");
-		autoPanel.add(timeComboBox, BorderLayout.EAST);
+		for (int i = 1; i <= 10; i++)
+		{
+			timeComboBox.addItem(i + "秒后");
+		}
+		timeComboBox.setSelectedIndex(2);
+		autoPanel.add(timeComboBox, BorderLayout.CENTER);
 		amPanel.add(autoPanel, BorderLayout.NORTH);
 
 		// 手动停止勾选框
@@ -159,8 +166,6 @@ public class SettingDialog extends KDialog
 		getContentPane().add(buttonPanel, BorderLayout.EAST);
 
 		validate();
-		// 显示界面
-		setVisible(true);
 	}
 
 	@Override
@@ -169,21 +174,54 @@ public class SettingDialog extends KDialog
 		// 判断来源
 		if (e.getSource() == autoStopCheckBox)
 		{
+			timeComboBox.setVisible(autoStopCheckBox.isSelected());
 
 		} else if (e.getSource() == manualStopCheckBox)
 		{
-			// 手动停止
-			// RollCallFrame.autoStopFlag = false;
+			timeComboBox.setVisible(autoStopCheckBox.isSelected());
 
 		} else if (e.getSource() == repeatCheckBox)
 		{
 
+		} else if (e.getSource() == defaultButton)
+		{
+			// 恢复默认
+			setDefault();
+
 		} else if (e.getSource() == applyButton)
 		{
+			// 应用
+			apply();
 
 		} else if (e.getSource() == cancelButton)
 		{
 			this.dispose();
 		}
 	}
+
+	/**
+	 * 应用
+	 */
+	private void apply()
+	{
+		// 自动停止
+		RollCallFrame.autoStopFlag = autoStopCheckBox.isSelected();
+		// 重复点名
+		RollCallFrame.repeatFlag = repeatCheckBox.isSelected();
+
+	}
+
+	/**
+	 * 恢复默认
+	 */
+	private void setDefault()
+	{
+		// 自动停止
+		autoStopCheckBox.doClick();
+		// 设置3秒
+		timeComboBox.setSelectedIndex(2);
+		// 重复点名
+		repeatCheckBox.setSelected(true);
+	}
+
 }
